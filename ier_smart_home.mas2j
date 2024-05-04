@@ -12,7 +12,7 @@
 
 MAS ier_smart_home {
 
-    environment: example.Env(10)
+    environment: controller.SmartHomeEnvironment()
 
     agents: bob;
             alice;
