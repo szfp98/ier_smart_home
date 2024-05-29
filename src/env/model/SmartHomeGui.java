@@ -1,100 +1,88 @@
 package model;
 
-import controller.SmartHomeEnvironment;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Field;
 
 public class SmartHomeGui implements ActionListener, ChangeListener {
     private JFrame frame;
     private JPanel topLeftPanel;
     private JPanel rightPanel;
     private JPanel bottomPanel;
-    private JButton button1;
-    private JButton button2;
     private JSlider[] slidersForRight;
+    private JPanel counterPanel;
+    private JLabel counterLabel;
+    private JButton incrementButton;
+    private JButton decrementButton;
+    private int counter;
+    private JTextField[] textsForDown;
 
     private JTextField[] textsForRight;
+    JRadioButton weatherButton1 = new JRadioButton("Sunny");
+    JRadioButton weatherButton2 = new JRadioButton("Rainy");
+    JRadioButton weatherButton3 = new JRadioButton("Extra Windy");
+    JRadioButton weatherButton4 = new JRadioButton("Cloudy");
+    JRadioButton weatherButton5 = new JRadioButton("Foggy");
+    JRadioButton trueButton = new JRadioButton("true");
+    JRadioButton falseButton = new JRadioButton("false");
+    ImageIcon door_closed = new ImageIcon("door_closed.png");
+    ImageIcon curtains_closed = new ImageIcon("curtains_closed.png");
+    ImageIcon curtains_open = new ImageIcon("curtains_open.png");
+    ImageIcon curtains_halfopen = new ImageIcon("curtains_halfopen.png");
+    ImageIcon window_open = new ImageIcon("window_open.png");
+    ImageIcon light_off = new ImageIcon("light_off.png");
+    ImageIcon light_on = new ImageIcon("light_on.png");
+    ImageIcon wall = new ImageIcon("wall.png");
+    ImageIcon wallrotated = new ImageIcon("wallrotated.png");
+    ImageIcon corner_ul = new ImageIcon("corner_ul.png");
+    ImageIcon corner_dr = new ImageIcon("corner_dr.png");
+    ImageIcon corner_dl = new ImageIcon("corner_dl.png");
+    ImageIcon corner_ur = new ImageIcon("corner_ur.png");
+    ImageIcon window_closed = new ImageIcon("window_closed.png");
+    ImageIcon door_open = new ImageIcon("door_open.png");
+    ImageIcon ac_off = new ImageIcon("ac_off.png");
+    ImageIcon ac_notworking = new ImageIcon("ac_notworking.png");
+    ImageIcon ac_on = new ImageIcon("ac_on.png");
+
+    private JLabel[] leftLabels  ;
     public SmartHomeGui() {
         // JFrame létrehozása
         frame = new JFrame("SmartHomeGUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.setLayout(new GridLayout(2,2));
-        slidersForRight = new JSlider[5];
-        textsForRight = new JTextField[5];
+        frame.setSize(700, 500);
+        frame.setLayout(new GridBagLayout());
+
+
         // Bal felső panel létrehozása 8x8-as GridLayout-tal
-        topLeftPanel = new JPanel(new GridLayout(8, 8));
-        for (int i = 0; i < 64; i++) {
-            topLeftPanel.add(new JButton("TL " + (i + 1)));
-        }
 
 
 
-//Külső és belső hőmérséklet mutató
-//Napszak irányító
-//Milyen idő van kint
-//Hány ember van házban
-//Elromlott légkondi
-        // Jobb oldali panel létrehozása 2x6-os GridLayout-tal
-         rightPanel = new JPanel(new GridLayout(5, 2));
-        for (int i = 0; i < 5; i++) {
-            slidersForRight[i] = new JSlider();
-            textsForRight[i] = new JTextField();
-        }
-        textsForRight[0].setText("Time(0-24)");
-        textsForRight[1].setText("Outside temp");
-        textsForRight[2].setText("Weather");
-        textsForRight[3].setText("N. of people");
-        textsForRight[4].setText("AC working");
-        for(int i = 0;i<2;i++){
-            rightPanel.add(textsForRight[i]);
-            rightPanel.add(slidersForRight[i]);
-        }
+        initWest();
+        initEast();
+        initSouth();
 
-        JPanel multiChoicePanel = new JPanel(new BorderLayout());
 
-        JPanel radioPanel = new JPanel(new GridLayout(3, 1));
-        ButtonGroup group = new ButtonGroup();
-        JRadioButton radioButton1 = new JRadioButton("Sunny");
-        JRadioButton radioButton2 = new JRadioButton("Rainy");
-        JRadioButton radioButton3 = new JRadioButton("Extra Windy");
-        JRadioButton radioButton4 = new JRadioButton("Cloudy");
-        JRadioButton radioButton5 = new JRadioButton("Foggy");
-
-        group.add(radioButton1);
-        group.add(radioButton2);
-        group.add(radioButton3);
-        group.add(radioButton4);
-        group.add(radioButton5);
-        radioPanel.add(radioButton1);
-        radioPanel.add(radioButton2);
-        radioPanel.add(radioButton3);
-        radioPanel.add(radioButton4);
-        radioPanel.add(radioButton5);
-
-         multiChoicePanel.add(radioPanel, BorderLayout.CENTER);
-        rightPanel.add(textsForRight[2]);
-        rightPanel.add(multiChoicePanel);
-// Alsó panel létrehozása 6x2-es GridLayout-tal
-        bottomPanel = new JPanel(new GridLayout(2, 6));
-        for (int i = 0; i < 12; i++) {
-            bottomPanel.add(new JButton("B " + (i + 1)));
-        }
+        GridBagConstraints gbc = new GridBagConstraints();
+gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
 
         // Bal felső panel hozzáadása a JFrame-hez (WEST pozícióba)
-        frame.add(topLeftPanel, BorderLayout.WEST);
+        frame.add(topLeftPanel,gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridheight = 1;
         // Jobb oldali panel hozzáadása a JFrame-hez (EAST pozícióba)
-        frame.add(rightPanel, BorderLayout.EAST);
-
+        frame.add(rightPanel,gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
         // Alsó panel hozzáadása a JFrame-hez (SOUTH pozícióba)
-        frame.add(bottomPanel, BorderLayout.SOUTH);
+        frame.add(bottomPanel,gbc);
 
         // JFrame megjelenítése
         frame.setVisible(true);
@@ -108,14 +96,198 @@ public class SmartHomeGui implements ActionListener, ChangeListener {
             }
         });
     }
+    public void initWest(){
+        topLeftPanel = new JPanel(new GridLayout(7, 7));
+        leftLabels = new JLabel[49];
+        for(int i = 0;i < 49; i ++)
+            leftLabels[i] = new JLabel();
+        leftLabels[0].setIcon(corner_ul);
+        for(int i = 1; i < 6; i ++){
+            leftLabels[i].setIcon(wall);
+            int k = 48-i ;
+            leftLabels[k].setIcon(wall);
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+        }
+        for(int i = 7; i < 49; i += 7) {
+            leftLabels[i].setIcon(wallrotated);
+            int k = i-1;
+            leftLabels[k].setIcon(wallrotated);
+        }
+
+        leftLabels[6].setIcon(corner_ur);
+        leftLabels[42].setIcon(corner_dl);
+        leftLabels[48].setIcon(corner_dr);
+        leftLabels[3].setIcon(window_closed);
+        leftLabels[10].setIcon(curtains_closed);
+        leftLabels[27].setIcon(ac_on);
+        leftLabels[45].setIcon(door_closed);
+        leftLabels[24].setIcon(light_on);
+        for (int i = 0; i < 49; i++) {
+            topLeftPanel.add(leftLabels[i]);
+        }
+    }
+    //Külső és belső hőmérséklet mutató
+    //Napszak irányító
+//Milyen idő van kint
+//Hány ember van házban
+//Elromlott légkondi
+    public void initSouth(){
+        textsForDown = new JTextField[5];
+        textsForDown[0] = new JTextField("Temperature inside");
+        textsForDown[1] = new JTextField();
+        textsForDown[1].addActionListener(this);
+        textsForDown[2] = new JTextField("AC on");
+        textsForDown[3] = new JTextField("on");
+        textsForDown[3].addActionListener(this);
+
+        bottomPanel = new JPanel(new GridLayout(2,4));
+        for (int i = 0;i <4;i++)
+            bottomPanel.add(textsForDown[i]);
 
     }
+    public void initEast(){
+        slidersForRight = new JSlider[2];
+        textsForRight = new JTextField[5];
+        for (int i = 0; i <2;i++) {
+            slidersForRight[i] = new JSlider();
+            slidersForRight[i].addChangeListener(this);
+        }
+        rightPanel = new JPanel(new GridLayout(5, 2));
+        for (int i = 0; i < 5; i++) {
+            textsForRight[i] = new JTextField();
+        }
+        textsForRight[0].setText("Time(0-24)");
+        textsForRight[1].setText("Outside temperature");
+        textsForRight[2].setText("Weather");
+        textsForRight[3].setText("Number of people");
+        textsForRight[4].setText("AC working");
+        for(int i = 0;i<2;i++){
+            rightPanel.add(textsForRight[i]);
+            rightPanel.add(slidersForRight[i]);
+        }
 
+        JPanel multiChoicePanel = new JPanel(new BorderLayout());
+
+        JPanel radioPanel = new JPanel(new GridLayout(3, 2));
+        ButtonGroup group = new ButtonGroup();
+
+        weatherButton1.addActionListener(this);
+        weatherButton2.addActionListener(this);
+        weatherButton3.addActionListener(this);
+        weatherButton4.addActionListener(this);
+        weatherButton5.addActionListener(this);
+
+        group.add(weatherButton1);
+        group.add(weatherButton2);
+        group.add(weatherButton3);
+        group.add(weatherButton4);
+        group.add(weatherButton5);
+        radioPanel.add(weatherButton1);
+        radioPanel.add(weatherButton2);
+        radioPanel.add(weatherButton3);
+        radioPanel.add(weatherButton4);
+        radioPanel.add(weatherButton5);
+
+        multiChoicePanel.add(radioPanel, BorderLayout.CENTER);
+        rightPanel.add(textsForRight[2]);
+        rightPanel.add(multiChoicePanel);
+        rightPanel.add((textsForRight[3]));
+        counterPanel = new JPanel();
+        counterPanel.setLayout(new GridLayout(1, 3));
+
+        // Counter label létrehozása
+        counter = 0;
+        counterLabel = new JLabel("0", SwingConstants.CENTER);
+
+        // Increment és decrement gombok létrehozása
+        incrementButton = new JButton("+");
+        decrementButton = new JButton("-");
+
+        // ActionListener-ek hozzáadása a gombokhoz
+        incrementButton.addActionListener(this);
+        decrementButton.addActionListener(this);
+
+        // Gombok és label hozzáadása a panelhez
+        counterPanel.add(decrementButton);
+        counterPanel.add(counterLabel);
+        counterPanel.add(incrementButton);
+        rightPanel.add(counterPanel);
+
+        rightPanel.add(textsForRight[4]);
+
+        JPanel multiChoicePanel2 = new JPanel(new BorderLayout());
+
+        JPanel radioPanel2 = new JPanel(new GridLayout(2, 1));
+        ButtonGroup group2 = new ButtonGroup();
+        group2.add(trueButton);
+        group2.add(falseButton);
+
+        falseButton.addActionListener(this);
+        trueButton.addActionListener(this);
+
+        radioPanel2.add(trueButton);
+        radioPanel2.add(falseButton);
+        multiChoicePanel2.add(radioPanel2, BorderLayout.CENTER);
+        rightPanel.add(multiChoicePanel2);
+
+    }
+    /*
+    leftLabels[3].setIcon(window_closed);
+    leftLabels[10].setIcon(curtains_closed);
+    leftLabels[27].setIcon(ac_on);
+    leftLabels[45].setIcon(door_closed);
+    leftLabels[24].setIcon(light_on);*/
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        counterListener(e);
+        radioPanel1Listener(e);
+        radioPanel2Listener(e);
+    }
+
+    public void counterListener(ActionEvent e){
+        // Ellenőrzés, hogy melyik gomb lett megnyomva
+        if (e.getSource() == incrementButton) {
+            counter++;
+        } else if (e.getSource() == decrementButton&& counter != 0) {
+            counter--;
+        }
+        // Counter label frissítése
+        counterLabel.setText(String.valueOf(counter));
+    }
+public void radioPanel1Listener(ActionEvent e){
+        if(e.getSource() == weatherButton1){
+
+        }
+        if(e.getSource() ==weatherButton2){
+
+        }
+        if(e.getSource() == weatherButton3){
+
+        }
+        if(e.getSource()==weatherButton4){
+
+        }
+        if(e.getSource() == weatherButton5){
+
+        }
+}
+public void radioPanel2Listener(ActionEvent e){
+        if (e.getSource()== trueButton){
+            leftLabels[27].setIcon(ac_off);
+        }
+        if(e.getSource() == falseButton){
+            leftLabels[27].setIcon(ac_notworking);
+        }
+}
     @Override
     public void stateChanged(ChangeEvent e) {
+        if(e.getSource()== slidersForRight[0])
+        {
 
+
+        }
+        if (e.getSource() == slidersForRight[1]){
+
+        }
     }
 }
