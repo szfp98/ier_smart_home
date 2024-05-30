@@ -286,7 +286,7 @@ public void radioPanel1Listener(ActionEvent e){
         if(e.getSource()== rainyButton){
             try {
                 RuntimeServices rs = RuntimeServicesFactory.get();
-                rs.getAgentSnapshot("window_agent").getTS().getC().addAchvGoal(Literal.parseLiteral("closeWindow"), null);
+                rs.getAgentSnapshot("window_controller").getTS().getC().addAchvGoal(Literal.parseLiteral("closeWindow"), null);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
