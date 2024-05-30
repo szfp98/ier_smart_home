@@ -15,18 +15,10 @@ MAS ier_smart_home {
     environment: controller.SmartHomeEnvironment()
 
     agents:
-            ac_controller agent {
-                asl: ac_controller.asl
-            }
-            curtain_controller agent {
-                asl: curtain_controller.asl
-            }
-            window_controller agent {
-                asl: window_controller.asl
-            }
-            light_controller agent {
-                asl: light_controller.asl
-            }
+           ac_controller ac_controller.asl;
+           curtains_controller curtains_controller.asl;
+           window_controller window_controller.asl;
+            light_controller light_controller.asl
 
     aslSourcePath: "src/agt";
 }

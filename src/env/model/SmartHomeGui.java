@@ -269,13 +269,13 @@ public class SmartHomeGui implements ActionListener, ChangeListener {
     }
 public void radioPanel1Listener(ActionEvent e){
         if(e.getSource() == sunnyButton){
-            try {
-                RuntimeServicesFactory runtimeServicesFactory = new RuntimeServicesFactory();
-                RuntimeServices rs = runtimeServicesFactory.get();
+           /* try {
+                RuntimeServicesFactory rsf = new RuntimeServicesFactory();
+                RuntimeServices rs = RuntimeServicesFactory.get().get()
                 rs.getAgentSnapshot("window_agent").getTS().getC().addAchvGoal(Literal.parseLiteral("openWindow"), null);
             } catch (Exception ex) {
                 ex.printStackTrace();
-            }
+            }*/
         }
         if(e.getSource() == extraWindyButton){
 
