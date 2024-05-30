@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 public class SmartHomeModel extends Observable {
     private Map<String, Boolean> deviceStates;
     private double temperature;
-    private boolean isDaytime;
+    private int time;
     private final Logger logger = Logger.getLogger(SmartHomeModel.class.getName());
 
     public SmartHomeModel() {
@@ -23,7 +23,7 @@ public class SmartHomeModel extends Observable {
         deviceStates.put("door", false);
         deviceStates.put("window", false);
         temperature = 22.0;
-        isDaytime = true;
+        time = 0;
         logger.info("Device states initialized.");
     }
 
@@ -55,14 +55,14 @@ public class SmartHomeModel extends Observable {
         logger.info("Temperature set to " + temperature);
     }
 
-    public boolean isDaytime() {
-        return isDaytime;
+    public int getTime() {
+        return time;
     }
 
-    public void setDaytime(boolean isDaytime) {
+   /* public void setDaytime(boolean isDaytime) {
         this.isDaytime = isDaytime;
         setChanged();
         notifyObservers("daytime");
         logger.info("Daytime set to " + isDaytime);
-    }
+    }*/
 }

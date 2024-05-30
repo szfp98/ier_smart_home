@@ -24,7 +24,7 @@ public class SmartHomeEnvironment extends Environment {
         model.addObserver((o, arg) -> updatePercepts());
         logger.info("SmartHomeEnvironment initialized with args.");
     }
-
+public SmartHomeModel getModel() {return model;}
     @Override
     public boolean executeAction(String agName, Structure action) {
         String act = action.getFunctor();

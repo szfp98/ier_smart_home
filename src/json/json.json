@@ -1,0 +1,35 @@
+{
+  "actors": [
+    {
+      "type": "Human",
+      "name": "John",
+      "actions": [
+        { "time": "morning", "action": "+!morning" },
+        { "time": "afternoon", "action": "+!afternoon" },
+        { "time": "evening", "action": "+!evening" }
+      ]
+    },
+    {
+      "type": "ACManager",
+      "name": "AC",
+      "actions": [
+        { "time": "check", "action": "+!check_temperature" }
+      ]
+    },
+    {
+      "type": "DoorWindowManager",
+      "name": "DoorWindow",
+      "actions": [
+        { "time": "check", "action": "+!check_weather" },
+        { "time": "check", "action": "+!check_presence" }
+      ]
+    },
+    {
+      "type": "LightManager",
+      "name": "Light",
+      "actions": [
+        { "time": "check", "action": "+!check_time" }
+      ]
+    }
+  ]
+}
