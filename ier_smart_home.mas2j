@@ -11,14 +11,14 @@
 */
 
 MAS ier_smart_home {
+    infrastructure: Centralised
 
-    environment: controller.SmartHomeEnvironment()
 
     agents:
-           ac_controller ac_controller.asl;
-           curtains_controller curtains_controller.asl;
-           window_controller window_controller.asl;
-            light_controller light_controller.asl
+           window_controller = 1;
+            light_controller = 1;
+
+    environment: environment.SmartHomeEnvironment
 
     aslSourcePath: "src/agt";
 }

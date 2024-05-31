@@ -1,4 +1,4 @@
-package controller;
+package environment;
 
 import jason.asSyntax.*;
 import jason.environment.*;
@@ -59,13 +59,18 @@ public SmartHomeModel getModel() {return model;}
             return false;
         }
     }
-
-    private void updatePercepts() {
+    public void setRainyWeather(boolean isRainy) {
+        model.setRainy(isRainy);
+        updatePercepts(); // Frissítjük a perceptusokat az időjárás változása után
+    }
+    public void updatePercepts() {
         clearAllPercepts();
         addPercept(Literal.parseLiteral("light(" + model.getDeviceState("light") + ")"));
         addPercept(Literal.parseLiteral("temperature(" + model.getTemperature() + ")"));
         addPercept(Literal.parseLiteral("window(" + model.getDeviceState("window") + ")"));
         addPercept(Literal.parseLiteral("door(" + model.getDeviceState("door") + ")"));
+        addPercept(Literal.parseLiteral("weather(" + (model.isRainy() ? "rainy" : "sunny") + ")")); // Időjárás perceptus hozzáadása
+
         logger.fine("Updated percepts based on the environment state.");
     }
 }

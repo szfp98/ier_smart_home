@@ -9,6 +9,7 @@ public class SmartHomeModel extends Observable {
     private Map<String, Boolean> deviceStates;
     private double temperature;
     private int time;
+    private boolean rainyWeather;
     private final Logger logger = Logger.getLogger(SmartHomeModel.class.getName());
 
     public SmartHomeModel() {
@@ -53,6 +54,16 @@ public class SmartHomeModel extends Observable {
         setChanged();
         notifyObservers("temperature");
         logger.info("Temperature set to " + temperature);
+    }
+    public boolean isRainy() {
+        return rainyWeather;
+    }
+
+    public void setRainy(boolean rainy) {
+        this.rainyWeather = rainy;
+        setChanged();
+        notifyObservers("weather");
+        logger.info("Weather set to " + (rainy ? "rainy" : "sunny"));
     }
 
     public int getTime() {
