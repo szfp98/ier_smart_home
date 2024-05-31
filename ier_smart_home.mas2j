@@ -21,4 +21,7 @@ MAS ier_smart_home {
     environment: environment.SmartHomeEnvironment
 
     aslSourcePath: "src/agt";
+    classpath:
+            .;
+            ./lib/jason.jar;
 }

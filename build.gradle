@@ -11,7 +11,7 @@ apply plugin: 'java'
 
 // set version of group for your project
 //version '1.0'
-//group   'io.github.jason-lang'
+//group   'io.github.jason.jar-lang'
 
 repositories {
     mavenCentral()
@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.jason-lang:jason-interpreter:3.2.0'
+    implementation 'io.github.jason.jar-lang:jason.jar-interpreter:3.2.0'
     
     // to use locally installed jars:
     implementation fileTree(dir: 'lib', include: '*.jar')
@@ -31,7 +31,7 @@ sourceSets {
         java {
             srcDir 'src/java'
             srcDir 'src/env'
-            srcDir '.' // some old jason apps store .java files in project root
+            srcDir '.' // some old jason.jar apps store .java files in project root
         }
         resources {
             srcDir 'src/resources'
@@ -41,7 +41,7 @@ sourceSets {
 
 task run (type: JavaExec, dependsOn: 'classes') {
     description 'runs the application'
-    mainClass = 'jason.infra.local.RunLocalMAS'
+    mainClass = 'jason.jar.infra.local.RunLocalMAS'
     args = ['ier_smart_home.mas2j']
 	// options:
 	//     args = ['ier_smart_home.mas2j', '--debug', '--no-net', '--empty-mas']
@@ -51,7 +51,7 @@ task run (type: JavaExec, dependsOn: 'classes') {
 
 task runJade (type: JavaExec, dependsOn: 'classes') {
     description 'runs the application with Jade infrastructure'
-    mainClass = 'jason.infra.jade.RunJadeMAS'
+    mainClass = 'jason.jar.infra.jade.RunJadeMAS'
     args = [ 'ier_smart_home.mas2j' ]
     classpath sourceSets.main.runtimeClasspath
 }
